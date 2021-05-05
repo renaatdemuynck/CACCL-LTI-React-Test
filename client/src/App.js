@@ -2,7 +2,7 @@
 import initCACCL from 'caccl/client/cached';
 
 // Import React
-import React, { Component } from 'react';
+import React from 'react';
 
 // Iport Instructure UI components
 import {
@@ -16,7 +16,9 @@ import './App.css';
 // Initialize caccl
 const { api, getStatus } = initCACCL();
 
-class App extends Component {
+
+export default class App extends React.Component {
+
     /**
      * Initialize App component
      */
@@ -88,5 +90,3 @@ class App extends Component {
         );
     }
 }
-
-export default App;
