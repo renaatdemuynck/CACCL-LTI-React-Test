@@ -4,6 +4,12 @@ import initCACCL from 'caccl/client/cached';
 // Import React
 import React, { Component } from 'react';
 
+// Iport Instructure UI components
+import {
+    Text,
+    View
+} from '@instructure/ui';
+
 // Import resources
 import './App.css';
 
@@ -76,13 +82,9 @@ class App extends Component {
 
         // Render the component
         return (
-            <div className="app">
-                <header className="app-header">
-                    <p>
-                        <strong>{message}</strong>
-                    </p>
-                </header>
-            </div>
+            <View>
+                <Text>{message}</Text>
+            </View>
         );
     }
 }
