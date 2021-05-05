@@ -5,7 +5,6 @@ import initCACCL from 'caccl/client/cached';
 import React, { Component } from 'react';
 
 // Import resources
-import logo from './logo.svg';
 import './App.css';
 
 // Initialize caccl
@@ -77,33 +76,11 @@ class App extends Component {
 
     // Render the component
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      <div className="app">
+        <header className="app-header">
           <p>
             <strong>{message}</strong>
           </p>
-          <p>
-            Edit <code>client/src/App.js</code> and save to recompile.
-          </p>
-
-          Resources:
-          <a
-            className="App-link"
-            href="https://harvard-edtech.github.io/caccl/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CACCL Docs
-          </a>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
