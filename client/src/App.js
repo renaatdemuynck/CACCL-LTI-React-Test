@@ -27,7 +27,7 @@ export default class App extends React.Component {
 
         // Set up state
         this.state = {
-            message: `Loading! Just a moment...`,
+            message: `Loading! Just a moment...`
         };
     }
 
@@ -43,19 +43,19 @@ export default class App extends React.Component {
             // > App wasn't launched via Canvas
             if (!status.launched) {
                 return this.setState({
-                    message: `Please launch this app from Canvas.`,
+                    message: `Please launch this app from Canvas.`
                 });
             }
 
             // > App is not authorized
             if (!status.authorized) {
                 return this.setState({
-                    message: `We don't have access to Canvas. Please re-launch the app.`,
+                    message: `We don't have access to Canvas. Please re-launch the app.`
                 });
             }
         } catch (err) {
             return this.setState({
-                message: `Error while requesting state from server: ${err.message}`,
+                message: `Error while requesting state from server: ${err.message}`
             });
         }
 
@@ -66,11 +66,11 @@ export default class App extends React.Component {
 
             // Update state
             return this.setState({
-                message: `Hi ${profile.name}! Your CACCL app is ready!`,
+                message: `Hi ${profile.name}! Your CACCL app is ready!`
             });
         } catch (err) {
             return this.setState({
-                message: `Error while requesting user profile: ${err.message}`,
+                message: `Error while requesting user profile: ${err.message}`
             });
         }
     }
