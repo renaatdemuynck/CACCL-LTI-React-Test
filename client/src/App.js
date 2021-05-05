@@ -6,6 +6,7 @@ import React from 'react';
 
 // Iport Instructure UI components
 import {
+    Alert,
     Text,
     View
 } from '@instructure/ui';
@@ -27,8 +28,11 @@ export default class App extends React.Component {
 
         // Set up state
         this.state = {
-            message: `Loading! Just a moment...`
+            alerts: new Map(),
+            isAppReady: false
         };
+
+        this.alertKey = 0;
     }
 
     /**
@@ -42,21 +46,21 @@ export default class App extends React.Component {
 
             // > App wasn't launched via Canvas
             if (!status.launched) {
-                return this.setState({
-                    message: `Please launch this app from Canvas.`
-                });
+                this.addAlert(`Please launch this app from Canvas.`, { variant: 'error' });
+
+                return;
             }
 
             // > App is not authorized
             if (!status.authorized) {
-                return this.setState({
-                    message: `We don't have access to Canvas. Please re-launch the app.`
-                });
+                this.addAlert(`We don't have access to Canvas. Please re-launch the app.`, { variant: 'error' });
+
+                return;
             }
         } catch (err) {
-            return this.setState({
-                message: `Error while requesting state from server: ${err.message}`
-            });
+            this.addAlert(`Error while requesting state from server: ${err.message}`, { variant: 'error' });
+
+            return;
         }
 
         // Load profile information
@@ -64,15 +68,34 @@ export default class App extends React.Component {
             // Get profile from Canvas via api
             const profile = await api.user.self.getProfile();
 
+            this.addAlert(`Hi ${profile.name}! Your CACCL app is ready!`, { timeout: 3000 });
+
             // Update state
-            return this.setState({
-                message: `Hi ${profile.name}! Your CACCL app is ready!`
+            this.setState({
+                isAppReady: true
             });
+
+            return;
         } catch (err) {
-            return this.setState({
-                message: `Error while requesting user profile: ${err.message}`
-            });
+            this.addAlert(`Error while requesting user profile: ${err.message}`, { variant: 'error' });
+
+            return;
         }
+    }
+
+    addAlert(content, options = {}) {
+        const alerts = this.state.alerts;
+        const key = this.alertKey++;
+
+        alerts.set(key, { content, options });
+        this.setState({ alerts });
+    }
+
+    closeAlert(key) {
+        const alerts = this.state.alerts;
+
+        alerts.delete(key);
+        this.setState({ alerts });
     }
 
     /**
@@ -80,12 +103,30 @@ export default class App extends React.Component {
      */
     render() {
         // Deconstruct the state
-        const { message } = this.state;
+        const { alerts, isAppReady } = this.state;
 
         // Render the component
         return (
             <View>
-                <Text>{message}</Text>
+                <div className="app-alerts">
+                    {Array.from(alerts.entries()).map(([key, { content, options }]) => (
+                        <Alert
+                            key={key}
+                            variant={options.variant}
+                            timeout={options.timeout}
+                            renderCloseButtonLabel="Close"
+                            onDismiss={() => this.closeAlert(key)}
+                            margin="small"
+                        >
+                            {content}
+                        </Alert>
+                    ))}
+                </div>
+                {isAppReady &&
+                    <Text>
+                        Your CACCL app is ready!
+                    </Text>
+                }
             </View>
         );
     }
