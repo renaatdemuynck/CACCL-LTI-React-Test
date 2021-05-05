@@ -6,11 +6,11 @@
 	"scripts": {
 		"test": "echo 'Error: no test specified' && exit 1",
 		"start": "node index.js",
-		"postinstall": "cd client && npm install",
-		"build": "cd client && npm install && npm run build",
+		"postinstall": "cd client && yarpm-yarn install",
+		"build": "cd client && yarpm-yarn install && yarpm-yarn run build",
 		"dev:canvas": "node ./node_modules/caccl/canvas/startPartialSimulation",
-		"dev:server": "cross-env DEV=true npm start",
-		"dev:client": "cd client && cross-env DEV=true npm start"
+		"dev:server": "cross-env DEV=true yarpm-yarn start",
+		"dev:client": "cd client && cross-env DEV=true yarpm-yarn start"
 	},
 	"author": "renaat.demuynck@arteveldehs.be",
 	"license": "ISC",
@@ -18,6 +18,7 @@
 		"caccl": "^1.1.38"
 	},
 	"devDependencies": {
-		"cross-env": "^7.0.3"
+		"cross-env": "^7.0.3",
+		"yarpm": "^1.1.1"
 	}
 }
