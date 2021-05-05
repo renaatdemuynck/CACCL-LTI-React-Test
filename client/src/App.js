@@ -12,7 +12,7 @@ import {
 } from '@instructure/ui';
 
 // Import resources
-import './App.css';
+import styles from './App.module.css';
 
 // Initialize caccl
 const { api, getStatus } = initCACCL();
@@ -108,7 +108,7 @@ export default class App extends React.Component {
         // Render the component
         return (
             <View>
-                <div className="app-alerts">
+                <div id={styles.alerts}>
                     {Array.from(alerts.entries()).map(([key, { content, options }]) => (
                         <Alert
                             key={key}
