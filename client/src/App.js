@@ -14,6 +14,9 @@ import {
 // Import resources
 import styles from './App.module.css';
 
+// Signed-in user context
+const UserProfileContext = React.createContext();
+
 // Initialize caccl
 const { api, getStatus } = initCACCL();
 
@@ -72,7 +75,8 @@ export default class App extends React.Component {
 
             // Update state
             this.setState({
-                isAppReady: true
+                isAppReady: true,
+                profile
             });
 
             return;
@@ -103,10 +107,11 @@ export default class App extends React.Component {
      */
     render() {
         // Deconstruct the state
-        const { alerts, isAppReady } = this.state;
+        const { alerts, isAppReady, profile } = this.state;
 
         // Render the component
         return (
+            <UserProfileContext.Provider value={profile}>
             <View>
                 <div id={styles.alerts}>
                     {Array.from(alerts.entries()).map(([key, { content, options }]) => (
@@ -123,11 +128,16 @@ export default class App extends React.Component {
                     ))}
                 </div>
                 {isAppReady &&
+                        <UserProfileContext.Consumer>
+                            {user => (
                     <Text>
-                        Your CACCL app is ready!
+                                    Hello {user.name}. Your CACCL app is ready!
                     </Text>
+                            )}
+                        </UserProfileContext.Consumer>
                 }
             </View>
+            </UserProfileContext.Provider>
         );
     }
 }
