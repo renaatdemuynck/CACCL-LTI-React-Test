@@ -11,6 +11,8 @@ import {
     View
 } from '@instructure/ui';
 
+import AlertsContext, { addAlert } from './contexts/AlertsContext';
+
 // Import resources
 import styles from './App.module.css';
 
@@ -31,11 +33,8 @@ export default class App extends React.Component {
 
         // Set up state
         this.state = {
-            alerts: new Map(),
             isAppReady: false
         };
-
-        this.alertKey = 0;
     }
 
     /**
@@ -49,19 +48,19 @@ export default class App extends React.Component {
 
             // > App wasn't launched via Canvas
             if (!status.launched) {
-                this.addAlert(`Please launch this app from Canvas.`, { variant: 'error' });
+                addAlert(`Please launch this app from Canvas.`, { variant: 'error' });
 
                 return;
             }
 
             // > App is not authorized
             if (!status.authorized) {
-                this.addAlert(`We don't have access to Canvas. Please re-launch the app.`, { variant: 'error' });
+                addAlert(`We don't have access to Canvas. Please re-launch the app.`, { variant: 'error' });
 
                 return;
             }
         } catch (err) {
-            this.addAlert(`Error while requesting state from server: ${err.message}`, { variant: 'error' });
+            addAlert(`Error while requesting state from server: ${err.message}`, { variant: 'error' });
 
             return;
         }
@@ -71,7 +70,7 @@ export default class App extends React.Component {
             // Get profile from Canvas via api
             const profile = await api.user.self.getProfile();
 
-            this.addAlert(`Hi ${profile.name}! Your CACCL app is ready!`, { timeout: 3000 });
+            addAlert(`Hi ${profile.name}! Your CACCL app is ready!`, { timeout: 3000 });
 
             // Update state
             this.setState({
@@ -81,25 +80,10 @@ export default class App extends React.Component {
 
             return;
         } catch (err) {
-            this.addAlert(`Error while requesting user profile: ${err.message}`, { variant: 'error' });
+            addAlert(`Error while requesting user profile: ${err.message}`, { variant: 'error' });
 
             return;
         }
-    }
-
-    addAlert(content, options = {}) {
-        const alerts = this.state.alerts;
-        const key = this.alertKey++;
-
-        alerts.set(key, { content, options });
-        this.setState({ alerts });
-    }
-
-    closeAlert(key) {
-        const alerts = this.state.alerts;
-
-        alerts.delete(key);
-        this.setState({ alerts });
     }
 
     /**
@@ -107,36 +91,40 @@ export default class App extends React.Component {
      */
     render() {
         // Deconstruct the state
-        const { alerts, isAppReady, profile } = this.state;
+        const { isAppReady, profile } = this.state;
 
         // Render the component
         return (
             <UserProfileContext.Provider value={profile}>
-            <View>
-                <div id={styles.alerts}>
-                    {Array.from(alerts.entries()).map(([key, { content, options }]) => (
-                        <Alert
-                            key={key}
-                            variant={options.variant}
-                            timeout={options.timeout}
-                            renderCloseButtonLabel="Close"
-                            onDismiss={() => this.closeAlert(key)}
-                            margin="small"
-                        >
-                            {content}
-                        </Alert>
-                    ))}
-                </div>
-                {isAppReady &&
+                <View>
+                    <AlertsContext.Consumer>
+                        {({ alerts, closeAlert }) => (
+                            <div id={styles.alerts}>
+                                {Array.from(alerts.entries()).map(([key, { content, options }]) => (
+                                    <Alert
+                                        key={key}
+                                        variant={options.variant}
+                                        timeout={options.timeout}
+                                        renderCloseButtonLabel="Close"
+                                        onDismiss={() => closeAlert(key)}
+                                        margin="small"
+                                    >
+                                        {content}
+                                    </Alert>
+                                ))}
+                            </div>
+                        )}
+                    </AlertsContext.Consumer>
+                    {isAppReady &&
                         <UserProfileContext.Consumer>
                             {user => (
-                    <Text>
+                                <Text>
                                     Hello {user.name}. Your CACCL app is ready!
-                    </Text>
+                                </Text>
                             )}
                         </UserProfileContext.Consumer>
-                }
-            </View>
+                    }
+                </View>
             </UserProfileContext.Provider>
         );
     }
