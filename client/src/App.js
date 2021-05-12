@@ -20,7 +20,7 @@ import styles from './App.module.css';
 const UserProfileContext = React.createContext();
 
 // Initialize caccl
-const { api, getStatus } = initCACCL();
+const { api } = initCACCL();
 
 
 export default class App extends React.Component {
@@ -41,30 +41,6 @@ export default class App extends React.Component {
      * Called when the component mounted, pulls state and user profile from server
      */
     async componentDidMount() {
-        // Load status
-        try {
-            // Get status from server
-            const status = await getStatus();
-
-            // > App wasn't launched via Canvas
-            if (!status.launched) {
-                addAlert(`Please launch this app from Canvas.`, { variant: 'error' });
-
-                return;
-            }
-
-            // > App is not authorized
-            if (!status.authorized) {
-                addAlert(`We don't have access to Canvas. Please re-launch the app.`, { variant: 'error' });
-
-                return;
-            }
-        } catch (err) {
-            addAlert(`Error while requesting state from server: ${err.message}`, { variant: 'error' });
-
-            return;
-        }
-
         // Load profile information
         try {
             // Get profile from Canvas via api
