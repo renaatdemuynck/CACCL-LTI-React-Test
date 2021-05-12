@@ -25,17 +25,9 @@ const { api } = initCACCL();
 
 export default class App extends React.Component {
 
-    /**
-     * Initialize App component
-     */
-    constructor(props) {
-        super(props);
-
-        // Set up state
-        this.state = {
-            isAppReady: false
-        };
-    }
+    state = {
+        isAppReady: false
+    };
 
     /**
      * Called when the component mounted, pulls state and user profile from server
@@ -104,4 +96,5 @@ export default class App extends React.Component {
             </UserProfileContext.Provider>
         );
     }
+
 }
