@@ -13,6 +13,8 @@ import {
 
 import AlertsContext, { addAlert } from './contexts/AlertsContext';
 
+import TopNav from './components/TopNav';
+
 // Import resources
 import styles from './App.module.css';
 
@@ -83,6 +85,7 @@ export default class App extends React.Component {
                             </div>
                         )}
                     </AlertsContext.Consumer>
+                    <TopNav />
                     {isAppReady &&
                         <UserProfileContext.Consumer>
                             {user => (
