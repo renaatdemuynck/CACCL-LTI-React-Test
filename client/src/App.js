@@ -66,7 +66,7 @@ export default class App extends React.Component {
         // Render the component
         return (
             <UserProfileContext.Provider value={profile}>
-                <View>
+                <View as="main" padding="small">
                     <AlertsContext.Consumer>
                         {({ alerts, closeAlert }) => (
                             <div id={styles.alerts}>
