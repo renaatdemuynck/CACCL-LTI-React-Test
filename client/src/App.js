@@ -3,20 +3,17 @@ import React from 'react';
 
 // Iport Instructure UI components
 import {
-    Alert,
     Text,
     View
 } from '@instructure/ui';
 
-import AlertsContext from './contexts/AlertsContext';
-
 import TopNav from './components/TopNav';
-
-// Import resources
-import styles from './App.module.css';
+import Alerts from './components/Alerts';
 
 // Signed-in user context
 import { UserProfileProvider, UserProfileConsumer } from './contexts/UserProfileContext';
+
+import styles from './App.module.css';
 
 
 export default class App extends React.Component {
@@ -29,24 +26,9 @@ export default class App extends React.Component {
         return (
             <UserProfileProvider>
                 <View as="main" padding="small">
-                    <AlertsContext.Consumer>
-                        {({ alerts, closeAlert }) => (
-                            <div id={styles.alerts}>
-                                {Array.from(alerts).map(([key, { content, options }]) => (
-                                    <Alert
-                                        key={key}
-                                        variant={options.variant}
-                                        timeout={options.timeout}
-                                        renderCloseButtonLabel="Close"
-                                        onDismiss={() => closeAlert(key)}
-                                        margin="small"
-                                    >
-                                        {content}
-                                    </Alert>
-                                ))}
-                            </div>
-                        )}
-                    </AlertsContext.Consumer>
+                    <div id={styles.alerts}>
+                        <Alerts />
+                    </div>
                     <TopNav />
                     <UserProfileConsumer renderBeforeReady={
                         <Text>Loading...</Text>
