@@ -8,18 +8,13 @@ const { api } = initCACCL();
 
 export const UserProfileProvider = ({ children }) => {
     const [profile, setProfile] = useState();
-    const getProfile = async () => {
-        try {
-            const profile = await api.user.self.getProfile();
-
-            setProfile(profile);
-        } catch (err) {
-            console.error(`Error while requesting user profile: ${err.message}`);
-        }
-    };
 
     useEffect(() => {
-        getProfile();
+        api.user.self.getProfile()
+            .then(setProfile)
+            .catch(err => {
+                console.error(`Error while requesting user profile: ${err.message}`);
+            });
     }, []);
 
     return (
