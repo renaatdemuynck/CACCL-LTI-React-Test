@@ -55,11 +55,11 @@ export default class App extends React.Component {
                         )}
                     </AlertsContext.Consumer>
                     <TopNav />
-                    <UserProfileConsumer>
+                    <UserProfileConsumer renderBeforeReady={
+                        <Text>Loading...</Text>
+                    }>
                         {user => (
-                            <Text>
-                                Hello {user?.name}!
-                            </Text>
+                            <Text>Hello {user.name}!</Text>
                         )}
                     </UserProfileConsumer>
                 </View>
