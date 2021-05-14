@@ -8,7 +8,7 @@ import {
     View
 } from '@instructure/ui';
 
-import AlertsContext, { addAlert } from './contexts/AlertsContext';
+import AlertsContext from './contexts/AlertsContext';
 
 import TopNav from './components/TopNav';
 
@@ -22,13 +22,6 @@ import { UserProfileProvider, UserProfileConsumer } from './contexts/UserProfile
 export default class App extends React.Component {
 
     /**
-     * Called when the component mounted, pulls state and user profile from server
-     */
-    componentDidMount() {
-        addAlert(`Hi! Your CACCL app is ready!`, { timeout: 3000 });
-    }
-
-    /**
      * Render the App
      */
     render() {
@@ -39,7 +32,7 @@ export default class App extends React.Component {
                     <AlertsContext.Consumer>
                         {({ alerts, closeAlert }) => (
                             <div id={styles.alerts}>
-                                {Array.from(alerts.entries()).map(([key, { content, options }]) => (
+                                {Array.from(alerts).map(([key, { content, options }]) => (
                                     <Alert
                                         key={key}
                                         variant={options.variant}
