@@ -16,17 +16,17 @@ import styles from './App.module.css';
 export default function App() {
     return (
         <LtiProvider>
-            <UserProfileProvider>
-                <EmotionThemeProvider theme={canvas}>
-                    <View as="main" padding="small">
-                        <div id={styles.alerts}>
-                            <Alerts />
-                        </div>
+            <EmotionThemeProvider theme={canvas}>
+                <View as="main" padding="small">
+                    <div id={styles.alerts}>
+                        <Alerts />
+                    </div>
+                    <UserProfileProvider>
                         <TopNav />
                         <Content />
-                    </View>
-                </EmotionThemeProvider>
-            </UserProfileProvider>
+                    </UserProfileProvider>
+                </View>
+            </EmotionThemeProvider>
         </LtiProvider>
     );
 }
