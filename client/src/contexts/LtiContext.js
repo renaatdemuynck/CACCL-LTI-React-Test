@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 
 import initCACCL from 'caccl/client/cached';
 
-const { Provider, Consumer } = createContext();
+const LtiContext = createContext();
 const { getStatus } = initCACCL();
 
 
@@ -28,10 +28,11 @@ export const LtiProvider = ({ children }) => {
     }, []);
 
     return (
-        <Provider value={status}>
+        <LtiContext.Provider value={status}>
             {status?.authorized && children}
-        </Provider>
+        </LtiContext.Provider>
     );
 };
 
-export { Consumer as UserProfileConsumer };
+export const LtiContextConsumer = LtiContext.Consumer;
+export default LtiContext;
