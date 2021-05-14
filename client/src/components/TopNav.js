@@ -5,6 +5,8 @@ import {
     IconHamburgerLine
 } from '@instructure/ui';
 
+import UserAvatar from './UserAvatar';
+
 
 export default function TopNav() {
     const [visibleItemsCount, setVisibleItemsCount] = useState(2);
@@ -18,6 +20,9 @@ export default function TopNav() {
             }}
             renderBeforeItems={
                 <IconAnalyticsLine size="small" color="primary" />
+            }
+            renderAfterItems={
+                <UserAvatar size="small" />
             }
             renderTruncateLabel={
                 <IconHamburgerLine size="small" />
