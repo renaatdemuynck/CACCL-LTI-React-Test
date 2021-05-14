@@ -1337,6 +1337,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@instructure/browserslist-config-instui@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/browserslist-config-instui/-/browserslist-config-instui-8.4.0.tgz#406bed6327a8beaad02bf0ea91ffb658ddfa97e3"
+  integrity sha512-ZtoJxc9yHwuMUDrroTeyqIZMAXL7TDA7sgmmRWRM0UKYKvZCii9fzZi6MHLxW1UDFKH9ggxFULJ8/GVlnabbpQ==
+
 "@instructure/canvas-high-contrast-theme@^8.3.0":
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/@instructure/canvas-high-contrast-theme/-/canvas-high-contrast-theme-8.3.0.tgz#8b82ec13df4061a9e40b586094c8e4fbedc71ce0"
