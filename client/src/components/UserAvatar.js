@@ -6,8 +6,9 @@ import UserProfileContext from '../contexts/UserProfileContext';
 export default function UserAvatar({ size }) {
     const profile = useContext(UserProfileContext);
     const name = profile?.name || 'Guest';
+    const avatarUrl = profile?.avatar_url;
 
     return (
-        <Avatar name={name} size={size} />
+        <Avatar name={name} src={avatarUrl} size={size} />
     );
 }
