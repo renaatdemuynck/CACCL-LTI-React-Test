@@ -1,6 +1,3 @@
-// Import caccl
-import initCACCL from 'caccl/client/cached';
-
 // Import React
 import React from 'react';
 
@@ -19,53 +16,25 @@ import TopNav from './components/TopNav';
 import styles from './App.module.css';
 
 // Signed-in user context
-const UserProfileContext = React.createContext();
-
-// Initialize caccl
-const { api } = initCACCL();
+import { UserProfileProvider, UserProfileConsumer } from './contexts/UserProfileContext';
 
 
 export default class App extends React.Component {
 
-    state = {
-        isAppReady: false
-    };
-
     /**
      * Called when the component mounted, pulls state and user profile from server
      */
-    async componentDidMount() {
-        // Load profile information
-        try {
-            // Get profile from Canvas via api
-            const profile = await api.user.self.getProfile();
-
-            addAlert(`Hi ${profile.name}! Your CACCL app is ready!`, { timeout: 3000 });
-
-            // Update state
-            this.setState({
-                isAppReady: true,
-                profile
-            });
-
-            return;
-        } catch (err) {
-            addAlert(`Error while requesting user profile: ${err.message}`, { variant: 'error' });
-
-            return;
-        }
+    componentDidMount() {
+        addAlert(`Hi! Your CACCL app is ready!`, { timeout: 3000 });
     }
 
     /**
      * Render the App
      */
     render() {
-        // Deconstruct the state
-        const { isAppReady, profile } = this.state;
-
         // Render the component
         return (
-            <UserProfileContext.Provider value={profile}>
+            <UserProfileProvider>
                 <View as="main" padding="small">
                     <AlertsContext.Consumer>
                         {({ alerts, closeAlert }) => (
@@ -86,17 +55,15 @@ export default class App extends React.Component {
                         )}
                     </AlertsContext.Consumer>
                     <TopNav />
-                    {isAppReady &&
-                        <UserProfileContext.Consumer>
-                            {user => (
-                                <Text>
-                                    Hello {user.name}. Your CACCL app is ready!
-                                </Text>
-                            )}
-                        </UserProfileContext.Consumer>
-                    }
+                    <UserProfileConsumer>
+                        {user => (
+                            <Text>
+                                Hello {user?.name}!
+                            </Text>
+                        )}
+                    </UserProfileConsumer>
                 </View>
-            </UserProfileContext.Provider>
+            </UserProfileProvider>
         );
     }
 
