@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 
 import initCACCL from 'caccl/client/cached';
 
-const { Provider, Consumer } = createContext();
+const UserProfileContext = createContext();
 const { api } = initCACCL();
 
 
@@ -18,14 +18,16 @@ export const UserProfileProvider = ({ children }) => {
     }, []);
 
     return (
-        <Provider value={profile}>
+        <UserProfileContext.Provider value={profile}>
             {children}
-        </Provider>
+        </UserProfileContext.Provider>
     );
 };
 
 export const UserProfileConsumer = ({ children, renderBeforeReady }) => (
-    <Consumer>
+    <UserProfileContext.Consumer>
         {user => ((user || !renderBeforeReady) ? children(user) : renderBeforeReady)}
-    </Consumer>
+    </UserProfileContext.Consumer>
 );
+
+export default UserProfileContext;
