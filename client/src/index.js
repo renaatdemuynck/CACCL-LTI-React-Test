@@ -29,11 +29,9 @@ getStatus().then(status => {
     }
 
     ReactDOM.render(
-        <React.StrictMode>
-            <EmotionThemeProvider theme={canvas}>
-                <App />
-            </EmotionThemeProvider>
-        </React.StrictMode>,
+        <EmotionThemeProvider theme={canvas}>
+            <App />
+        </EmotionThemeProvider>,
         document.getElementById('root')
     );
 }).catch(err => {
