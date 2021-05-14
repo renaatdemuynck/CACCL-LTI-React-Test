@@ -24,4 +24,8 @@ export const UserProfileProvider = ({ children }) => {
     );
 };
 
-export { Consumer as UserProfileConsumer };
+export const UserProfileConsumer = ({ children, renderBeforeReady }) => (
+    <Consumer>
+        {user => ((user || !renderBeforeReady) ? children(user) : renderBeforeReady)}
+    </Consumer>
+);
