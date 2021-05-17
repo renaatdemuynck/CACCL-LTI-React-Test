@@ -1,18 +1,31 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
-const alerts = new Map();
-var alertKey = 1;
 
 const AlertsContext = createContext({
-    get alerts() {
-        return alerts;
-    },
-    addAlert: function (content, options = {}) {
-        alerts.set(alertKey++, { content, options });
-    },
-    closeAlert: function (key) {
-        alerts.delete(key);
-    }
+    alerts: new Map(),
+    addAlert: () => { },
+    closeAlert: () => { }
 });
 
+var alertKey = 1;
+
+
+export const AlertsProvider = ({ children }) => {
+    const [alerts, setAlerts] = useState(new Map());
+    const [addAlert] = useState(() => (content, options = {}) => {
+        alerts.set(alertKey++, { content, options });
+        setAlerts(new Map(alerts));
+    });
+    const [closeAlert] = useState(() => (key) => {
+        alerts.delete(key);
+    });
+
+    return (
+        <AlertsContext.Provider value={{ alerts, addAlert, closeAlert }}>
+            {children}
+        </AlertsContext.Provider>
+    );
+};
+
+export const AlertsConsumer = AlertsContext.Consumer;
 export default AlertsContext;
