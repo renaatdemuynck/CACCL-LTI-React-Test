@@ -1,4 +1,8 @@
+import { useContext, useEffect } from 'react';
+
 import { Text } from '@instructure/ui';
+
+import AlertsContext from '../contexts/AlertsContext';
 import { UserProfileConsumer } from '../contexts/UserProfileContext';
 
 

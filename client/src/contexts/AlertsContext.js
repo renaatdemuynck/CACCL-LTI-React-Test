@@ -12,10 +12,12 @@ var alertKey = 1;
 
 export const AlertsProvider = ({ children }) => {
     const [alerts, setAlerts] = useState(new Map());
+
     const [addAlert] = useState(() => (content, options = {}) => {
         alerts.set(alertKey++, { content, options });
         setAlerts(new Map(alerts));
     });
+
     const [closeAlert] = useState(() => (key) => {
         alerts.delete(key);
     });

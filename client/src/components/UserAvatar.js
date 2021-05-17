@@ -1,5 +1,6 @@
-import { Avatar } from '@instructure/ui';
 import { useContext } from 'react';
+import { Avatar } from '@instructure/ui';
+
 import UserProfileContext from '../contexts/UserProfileContext';
 
 
