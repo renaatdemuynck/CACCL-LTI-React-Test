@@ -22,6 +22,8 @@ export default function App() {
     useEffect(() => {
         if (err) {
             addAlert(err.message, { variant: 'error' });
+        } else {
+            addAlert('Hi! Your CACCL app is ready.', { timeout: 3000 });
         }
     }, [err, addAlert]);
 
