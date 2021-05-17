@@ -3,6 +3,7 @@ import { View } from '@instructure/ui';
 import { LtiProvider } from './contexts/LtiContext';
 import { EmotionThemeProvider } from '@instructure/emotion'
 import { UserProfileProvider } from './contexts/UserProfileContext';
+import { AlertsProvider } from './contexts/AlertsContext';
 
 import Alerts from './components/Alerts';
 import TopNav from './components/TopNav';
@@ -18,13 +19,15 @@ export default function App() {
         <LtiProvider>
             <EmotionThemeProvider theme={canvas}>
                 <View as="main" padding="small">
-                    <div id={styles.alerts}>
-                        <Alerts />
-                    </div>
-                    <UserProfileProvider>
-                        <TopNav />
-                        <Content />
-                    </UserProfileProvider>
+                    <AlertsProvider>
+                        <div id={styles.alerts}>
+                            <Alerts />
+                        </div>
+                        <UserProfileProvider>
+                            <TopNav />
+                            <Content />
+                        </UserProfileProvider>
+                    </AlertsProvider>
                 </View>
             </EmotionThemeProvider>
         </LtiProvider>
