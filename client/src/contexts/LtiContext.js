@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
 
-import initCACCL from 'caccl/client/cached';
+import { getStatus } from '../caccl';
+
 
 const LtiContext = createContext();
-const { getStatus } = initCACCL();
 
 
 export const LtiProvider = ({ children }) => {

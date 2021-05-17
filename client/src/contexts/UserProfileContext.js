@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
 
-import initCACCL from 'caccl/client/cached';
+import { api } from '../caccl';
+
 
 const UserProfileContext = createContext();
-const { api } = initCACCL();
 
 
 export const UserProfileProvider = ({ children }) => {
