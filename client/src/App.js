@@ -1,35 +1,26 @@
 import { View } from '@instructure/ui';
 
-import { LtiProvider } from './contexts/LtiContext';
-import { EmotionThemeProvider } from '@instructure/emotion'
-import { UserProfileProvider } from './contexts/UserProfileContext';
-import { AlertsProvider } from './contexts/AlertsContext';
+import { EmotionThemeProvider } from '@instructure/emotion';
 
 import Alerts from './components/Alerts';
 import TopNav from './components/TopNav';
 import Content from './components/Content'
 
-import { canvas } from '@instructure/ui-themes'
+import { theme } from '@instructure/canvas-theme';
 
 import styles from './App.module.css';
 
 
 export default function App() {
     return (
-        <LtiProvider>
-            <EmotionThemeProvider theme={canvas}>
-                <View as="main" padding="small">
-                    <AlertsProvider>
-                        <div id={styles.alerts}>
-                            <Alerts />
-                        </div>
-                        <UserProfileProvider>
-                            <TopNav />
-                            <Content />
-                        </UserProfileProvider>
-                    </AlertsProvider>
-                </View>
-            </EmotionThemeProvider>
-        </LtiProvider>
+        <EmotionThemeProvider theme={theme}>
+            <View as="main" padding="small">
+                <div id={styles.alerts}>
+                    <Alerts />
+                </div>
+                <TopNav />
+                <Content />
+            </View>
+        </EmotionThemeProvider>
     );
 }
