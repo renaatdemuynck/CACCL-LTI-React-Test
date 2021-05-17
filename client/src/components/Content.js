@@ -1,9 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { UserProfileConsumer } from '../contexts/UserProfileContext';
 
 import { Text } from '@instructure/ui';
-
-import AlertsContext from '../contexts/AlertsContext';
-import { UserProfileConsumer } from '../contexts/UserProfileContext';
 
 
 export default function Content() {
