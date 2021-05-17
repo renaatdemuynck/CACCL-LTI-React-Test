@@ -8,28 +8,28 @@ const LtiContext = createContext();
 
 export const LtiProvider = ({ children }) => {
     const [status, setStatus] = useState();
+    const [err, setErr] = useState();
 
     useEffect(() => {
         getStatus().then(status => {
             // App wasn't launched via Canvas
             if (!status.launched) {
-                console.error(`Please launch this app from Canvas.`);
+                setErr(new Error(`Please launch this app from Canvas.`));
             }
-
             // App is not authorized
-            if (!status.authorized) {
-                console.error(`We don't have access to Canvas. Please re-launch the app.`);
+            else if (!status.authorized) {
+                setErr(new Error(`We don't have access to Canvas. Please re-launch the app.`));
             }
 
             setStatus(status)
-        }).catch(err => {
-            console.error(`Error while requesting state from server: ${err.message}`);
+        }).catch(err => { // App couldn't communicate with Canvas
+            setErr(new Error(`Error while requesting state from server: ${err.message}`));
         });
     }, []);
 
     return (
-        <LtiContext.Provider value={status}>
-            {status?.authorized && children}
+        <LtiContext.Provider value={{ status, err }}>
+            {status && children}
         </LtiContext.Provider>
     );
 };

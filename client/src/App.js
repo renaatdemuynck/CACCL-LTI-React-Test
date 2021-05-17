@@ -12,14 +12,20 @@ import styles from './App.module.css';
 
 
 export default function App() {
+    const { err } = useContext(LtiContext);
+
     return (
         <EmotionThemeProvider theme={theme}>
             <View as="main" padding="small">
                 <div id={styles.alerts}>
                     <Alerts />
                 </div>
+                {!err && // Render content if LTI launch was successful
+                    <Fragment>
                 <TopNav />
                 <Content />
+                    </Fragment>
+                }
             </View>
         </EmotionThemeProvider>
     );
