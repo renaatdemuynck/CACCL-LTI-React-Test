@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
     AppNav,
+    Avatar,
     IconAnalyticsLine,
     IconHamburgerLine
 } from '@instructure/ui';
 
-import UserAvatar from './UserAvatar';
+import UserProfileContext from '../contexts/UserProfileContext';
 
 
 export default function TopNav() {
     const [visibleItemsCount, setVisibleItemsCount] = useState(2);
+
+    const profile = useContext(UserProfileContext);
+    const avatarUrl = profile?.avatar_url;
+    const name = profile?.name || '';
 
     return (
         <AppNav
@@ -22,7 +27,7 @@ export default function TopNav() {
                 <IconAnalyticsLine size="small" color="primary" />
             }
             renderAfterItems={
-                <UserAvatar size="small" />
+                <Avatar name={name} src={avatarUrl} size="small" />
             }
             renderTruncateLabel={
                 <IconHamburgerLine size="small" />
