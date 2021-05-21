@@ -21,6 +21,9 @@ export default function App() {
     const { addAlert } = useContext(AlertsContext);
     const { t } = useTranslation();
 
+    // Only add padding when not embedded
+    const padding = (window.self === window.top) ? '0 small' : '0';
+
     useEffect(() => {
         if (err) {
             addAlert(err.message, { variant: 'error' });
@@ -35,7 +38,7 @@ export default function App() {
                     <Alerts />
                 </div>
                 {!err && // Render content if LTI launch was successful
-                <View as="main" padding="0 small">
+                <View as="main" padding={padding}>
                         <TopNav />
                         <Content />
             </View>
