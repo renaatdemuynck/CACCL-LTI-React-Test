@@ -1,0 +1,4 @@
+{
+    "app_ready": "Hi! Your CACCL app is ready.",
+    "hello": "Hello {{name}}!"
+}

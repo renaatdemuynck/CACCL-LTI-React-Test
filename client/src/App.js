@@ -1,4 +1,5 @@
 import { Fragment, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { View } from '@instructure/ui';
 
@@ -18,14 +19,15 @@ import styles from './App.module.css';
 export default function App() {
     const { err } = useContext(LtiContext);
     const { addAlert } = useContext(AlertsContext);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (err) {
             addAlert(err.message, { variant: 'error' });
         } else {
-            addAlert('Hi! Your CACCL app is ready.', { timeout: 3000 });
+            addAlert(t('app_ready'), { timeout: 3000 });
         }
-    }, [err, addAlert]);
+    }, [err, addAlert, t]);
 
     return (
         <EmotionThemeProvider theme={theme}>
