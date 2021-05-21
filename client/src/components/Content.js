@@ -9,7 +9,7 @@ export default function Content() {
             <Text>Loading...</Text>
         }>
             {user => (
-                <Text>Hello {user.name}!</Text>
+                <Text as="p">Hello {user.name}!</Text>
             )}
         </UserProfileConsumer>
     );
