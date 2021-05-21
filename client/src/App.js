@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { View } from '@instructure/ui';
@@ -31,17 +31,15 @@ export default function App() {
 
     return (
         <EmotionThemeProvider theme={theme}>
-            <View as="main" padding="small">
                 <div id={styles.alerts}>
                     <Alerts />
                 </div>
                 {!err && // Render content if LTI launch was successful
-                    <Fragment>
+                <View as="main" padding="0 small">
                         <TopNav />
                         <Content />
-                    </Fragment>
-                }
             </View>
+            }
         </EmotionThemeProvider>
     );
 }
