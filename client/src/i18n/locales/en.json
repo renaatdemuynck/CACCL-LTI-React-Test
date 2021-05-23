@@ -1,4 +1,9 @@
 {
     "app_ready": "Hi! Your CACCL app is ready.",
-    "hello": "Hello {{name}}!"
+    "hello": "Hello {{name}}!",
+    "lti.error": {
+        "launch_from_canvas": "Please launch this app from Canvas.",
+        "no_canvas_access": "We don't have access to Canvas. Please re-launch the app.",
+        "server": "Error while requesting state from server"
+    }
 }

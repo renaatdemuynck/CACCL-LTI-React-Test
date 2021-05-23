@@ -1,4 +1,9 @@
 {
     "app_ready": "Hey! Je CACCL app is klaar.",
-    "hello": "Hallo {{name}}!"
+    "hello": "Hallo {{name}}!",
+    "lti.error": {
+        "launch_from_canvas": "Gelieve de app te starten vanuit Canvas.",
+        "no_canvas_access": "Geen togang tot Canvas. Gelieve de app te herstarten.",
+        "server": "Fout tijdens aanvraag serverstatus"
+    }
 }
