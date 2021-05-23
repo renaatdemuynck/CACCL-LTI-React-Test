@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './App';
 
 import { LtiProvider } from './contexts/LtiContext';
@@ -11,12 +13,17 @@ import './index.css';
 
 
 ReactDOM.render(
-    <LtiProvider>
-        <AlertsProvider>
-            <UserProfileProvider>
-                <App />
-            </UserProfileProvider>
-        </AlertsProvider>
-    </LtiProvider>,
+    <Suspense fallback={
+        <p>Loading...</p>
+    }>
+
+        <LtiProvider>
+            <AlertsProvider>
+                <UserProfileProvider>
+                    <App />
+                </UserProfileProvider>
+            </AlertsProvider>
+        </LtiProvider>
+    </Suspense>,
     document.getElementById('root')
 );
