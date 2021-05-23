@@ -7,7 +7,7 @@ import { Text } from '@instructure/ui';
 export default function Content() {
     return (
         <UserProfileConsumer renderBeforeReady={
-            <Text>Loading...</Text>
+            <Text as="p">Loading...</Text>
         }>
             {({ name }) => (
                 <Text as="p">
