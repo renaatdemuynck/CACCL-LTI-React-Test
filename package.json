@@ -8,6 +8,7 @@
 		"start": "node index.js",
 		"postinstall": "cd client && yarpm-yarn install",
 		"build": "cd client && yarpm-yarn install && yarpm-yarn run build",
+		"dev": "run-p dev:server dev:client dev:canvas",
 		"dev:canvas": "node ./node_modules/caccl/canvas/startPartialSimulation",
 		"dev:server": "cross-env DEV=true yarpm-yarn start",
 		"dev:client": "cd client && cross-env DEV=true yarpm-yarn start"
@@ -19,6 +20,7 @@
 	},
 	"devDependencies": {
 		"cross-env": "^7.0.3",
+		"npm-run-all": "^4.1.5",
 		"yarpm": "^1.1.1"
 	}
 }
